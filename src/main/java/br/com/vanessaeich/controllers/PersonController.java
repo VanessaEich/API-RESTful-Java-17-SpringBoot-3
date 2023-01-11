@@ -1,6 +1,7 @@
 package br.com.vanessaeich.controllers;
 
-import br.com.vanessaeich.model.Person;
+import br.com.vanessaeich.dtos.v1.PersonDTO;
+import br.com.vanessaeich.dtos.v2.PersonDTOV2;
 import br.com.vanessaeich.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,28 +14,33 @@ import java.util.List;
  * @author Vanessa Eich on 10/01/2023
  */
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 public class PersonController {
 
     @Autowired
     private PersonServices services;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Person> findAll() {
+    public List<PersonDTO> findAll() {
         return services.findAll();
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable(value = "id") Long id) {
+    public PersonDTO findById(@PathVariable(value = "id") Long id) {
         return services.findById(id);
     }
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person create(@RequestBody Person person) {
+    public PersonDTO create(@RequestBody PersonDTO person) {
         return services.create(person);
     }
 
+    @PostMapping(value = "/v2", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public PersonDTOV2 createV2(@RequestBody PersonDTOV2 person) {
+        return services.createV2(person);
+    }
+
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person update(@RequestBody Person person) {
+    public PersonDTO update(@RequestBody PersonDTO person) {
         return services.update(person);
     }
 
