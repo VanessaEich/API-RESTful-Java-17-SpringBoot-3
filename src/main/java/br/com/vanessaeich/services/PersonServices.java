@@ -1,7 +1,9 @@
 package br.com.vanessaeich.services;
 
+import br.com.vanessaeich.controllers.PersonController;
 import br.com.vanessaeich.dtos.v1.PersonDTO;
 import br.com.vanessaeich.dtos.v2.PersonDTOV2;
+import br.com.vanessaeich.exceptions.RequiredObjectIsNullException;
 import br.com.vanessaeich.exceptions.ResourceNotFoundException;
 import br.com.vanessaeich.mapper.DozerMapper;
 import br.com.vanessaeich.mapper.PersonMapperV2;
@@ -9,6 +11,8 @@ import br.com.vanessaeich.model.Person;
 import br.com.vanessaeich.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -31,7 +35,11 @@ public class PersonServices {
 
         logger.info("Log- Finding all people");
 
-        return DozerMapper.parseListObjects(repository.findAll(), PersonDTO.class);
+        List<PersonDTO> persons = DozerMapper.parseListObjects(repository.findAll(), PersonDTO.class);
+        persons.stream().forEach(p -> {
+            p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel());
+        });
+        return persons;
     }
 
     public PersonDTO findById(Long id){
@@ -39,14 +47,20 @@ public class PersonServices {
         logger.info("Log- Finding one person");
 
         Person entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
-        return DozerMapper.parseObject(entity, PersonDTO.class);
+        PersonDTO dto = DozerMapper.parseObject(entity, PersonDTO.class);
+        dto.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+        return dto;
     }
 
     public PersonDTO create(PersonDTO person) {
+        if(person == null){
+            logger.info("Log- Fail, object is null");
+            throw new RequiredObjectIsNullException();
+        }
         logger.info("Log- Creating one person");
         Person entity = DozerMapper.parseObject(person, Person.class);
         PersonDTO dto = DozerMapper.parseObject(repository.save(entity), PersonDTO.class);
-
+        dto.add(linkTo(methodOn(PersonController.class).findById(dto.getKey())).withSelfRel());
         return dto;
     }
 
@@ -58,8 +72,12 @@ public class PersonServices {
         return dto;
     }
     public PersonDTO update(PersonDTO person) {
+        if(person == null){
+            logger.info("Log- Fail, object is null");
+            throw new RequiredObjectIsNullException();
+        }
         logger.info("Log- Updating one person");
-        Person entity = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
+        Person entity = repository.findById(person.getKey()).orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
 
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
@@ -67,6 +85,7 @@ public class PersonServices {
         entity.setGender(person.getGender());
 
         PersonDTO dto = DozerMapper.parseObject(repository.save(entity), PersonDTO.class);
+        dto.add(linkTo(methodOn(PersonController.class).findById(dto.getKey())).withSelfRel());
         return dto;
     }
 
