@@ -1,6 +1,7 @@
 package br.com.vanessaeich.exceptions.handler;
 
 import br.com.vanessaeich.exceptions.ExceptionResponse;
+import br.com.vanessaeich.exceptions.InvalidJwtAuthenticationException;
 import br.com.vanessaeich.exceptions.RequiredObjectIsNullException;
 import br.com.vanessaeich.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -37,5 +38,11 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         ExceptionResponse exceptionResponse = new ExceptionResponse(
                 new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(InvalidJwtAuthenticationException.class)
+    public final ResponseEntity<ExceptionResponse> handleInvalidJwtAuthenticationExceptions(Exception ex, WebRequest request){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
     }
 }
