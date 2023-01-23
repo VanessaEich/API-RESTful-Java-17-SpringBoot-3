@@ -25,7 +25,7 @@ jobs:
         cache: maven
 
     - name: Build Application JAR
-      working-directory: ./rest-with-spring-boot/rest-with-spring-boot
+      working-directory: ./rest-with-spring-boot/rest-with-spring-boot-and-java
       run: | 
         - pwd
         - mvn clean package
