@@ -24,12 +24,14 @@ jobs:
         distribution: 'adopt'
         cache: maven
 
-    - name: Build Application JAR      
+    - name: Build Application JAR
+      working-directory: ./rest-with-spring-boot/rest-with-spring-boot
       run: | 
         - pwd
         - mvn clean package
 
-    - name: Docker Compose Build      
+    - name: Docker Compose Build
+      working-directory: ./rest-with-spring-boot
       run: docker compose build
 
     - name: Push to Docker Hub Container Registry
