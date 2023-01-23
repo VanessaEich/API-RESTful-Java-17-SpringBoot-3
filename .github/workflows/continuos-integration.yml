@@ -28,7 +28,9 @@ jobs:
     - name: Build Application JAR
       working-directory: ./API-RESTful-Java-17-SpringBoot-3/rest-with-spring-boot-and-java
       
-      run: mvn clean package --file pom.xml
+      run: |
+        - pwd
+        - mvn clean package --file pom.xml
       
     - name: Docker Compose Build
       working-directory: ./API-RESTful-Java-17-SpringBoot-3
