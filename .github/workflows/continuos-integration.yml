@@ -23,12 +23,12 @@ jobs:
         cache: maven
 
     - name: Build Application JAR
-      working-directory: ./rest-with-spring-boot-and-java/rest-with-spring-boot-and-java/
+      working-directory: ./rest-with-spring-boot/rest-with-spring-boot-and-java/
       run: mvn clean package
 
     - name: Docker Compose Build
-      working-directory: ./rest-with-spring-boot-and-java/rest-with-spring-boot-and-java/
-      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot-and-java:${{github.run_id}} .
+      working-directory: ./rest-with-spring-boot/rest-with-spring-boot-and-java/
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/rest-with-springboot:${{github.run_id}} .
 
     - name: Push to Docker Hub Container Registry
       run: |
