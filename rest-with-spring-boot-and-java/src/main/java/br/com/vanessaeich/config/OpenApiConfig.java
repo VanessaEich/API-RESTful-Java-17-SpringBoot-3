@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI customOpenApi(){
+    OpenAPI customOpenApi(){
         return new OpenAPI()
                 .info(new Info()
                         .title("RESTful API- Spring Boot 3 and Java 18")
