@@ -4,12 +4,14 @@ on:
   push:
     branches:
       - main
+      
 jobs:
   build:
+  
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Login to Docker Hub
       uses: docker/login-action@v2.0.0
@@ -18,20 +20,18 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     
     - name: Set up JDK 17
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'adopt'
         cache: maven
 
     - name: Build Application JAR
-      working-directory: /rest-with-spring-boot/rest-with-spring-boot/
-      run: | 
-        - pwd
-        - mvn clean package
+      working-directory: ./spring-rest/rest-with-spring-boot-and-java
+      run: mvn clean package
 
     - name: Docker Compose Build
-      working-directory: /rest-with-spring-boot/
+      working-directory: ./spring-rest
       run: docker compose build
 
     - name: Push to Docker Hub Container Registry
