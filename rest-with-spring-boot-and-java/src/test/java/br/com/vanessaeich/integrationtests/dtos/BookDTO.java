@@ -1,38 +1,24 @@
-package br.com.vanessaeich.model;
-
-import jakarta.persistence.*;
+package br.com.vanessaeich.integrationtests.dtos;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 /**
- * @author Vanessa Eich on 10/01/2023
+ * @author Vanessa Eich on 04/02/2023
  */
-@Entity
-@Table(name = "book")
-public class Book implements Serializable {
+public class BookDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false, length = 180)
     private String author;
-
-    @Column(name = "launch_date", nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date launchDate;
-
-    @Column(nullable = false)
     private Double price;
-
-    @Column(nullable = false, length = 250)
     private String title;
 
-    public Book() {}
+    public BookDTO() {
+    }
 
     public Long getId() {
         return id;
@@ -78,8 +64,8 @@ public class Book implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return Objects.equals(id, book.id) && Objects.equals(author, book.author) && Objects.equals(launchDate, book.launchDate) && Objects.equals(price, book.price) && Objects.equals(title, book.title);
+        BookDTO bookDTO = (BookDTO) o;
+        return Objects.equals(id, bookDTO.id) && Objects.equals(author, bookDTO.author) && Objects.equals(launchDate, bookDTO.launchDate) && Objects.equals(price, bookDTO.price) && Objects.equals(title, bookDTO.title);
     }
 
     @Override
