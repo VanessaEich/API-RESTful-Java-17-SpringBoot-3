@@ -1,4 +1,6 @@
-package br.com.vanessaeich.dtos.v1.security;
+package br.com.vanessaeich.integrationtests.dtos;
+
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -6,6 +8,7 @@ import java.util.Objects;
 /**
  * @author Vanessa Eich on 22/01/2023
  */
+@XmlRootElement
 public class AccountCredencialsDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -14,10 +17,7 @@ public class AccountCredencialsDTO implements Serializable {
 
     private String password;
 
-    public AccountCredencialsDTO(){
-
-    }
-
+    public AccountCredencialsDTO(){}
     public AccountCredencialsDTO(String username, String password) {
         this.username = username;
         this.password = password;
