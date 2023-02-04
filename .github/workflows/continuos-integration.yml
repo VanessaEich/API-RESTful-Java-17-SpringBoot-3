@@ -27,7 +27,7 @@ jobs:
         cache: maven
 
     - name: Build Application JAR
-      working-directory: ./spring-rest/rest-with-spring-boot-and-java
+      working-directory: spring-rest/rest-with-spring-boot-and-java
       run: mvn clean package
 
     - name: Docker Compose Build
