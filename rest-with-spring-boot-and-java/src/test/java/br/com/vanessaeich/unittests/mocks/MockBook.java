@@ -2,7 +2,10 @@ package br.com.vanessaeich.unittests.mocks;
 
 import br.com.vanessaeich.dtos.v1.BookDTO;
 import br.com.vanessaeich.model.Book;
+import com.github.dozermapper.core.converters.LocalDateTimeConverter;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,8 +43,8 @@ public class MockBook {
         Book book = new Book();
         book.setId(number.longValue());
         book.setAuthor("Some Author" + number);
-        book.setLaunchDate(new Date());
-        book.setPrice(25D);
+        book.setLaunchDate(LocalDateTime.now());
+        book.setPrice(BigDecimal.valueOf(25));
         book.setTitle("Some Title" + number);
         return book;
     }
@@ -50,8 +53,8 @@ public class MockBook {
         BookDTO book = new BookDTO();
         book.setKey(number.longValue());
         book.setAuthor("Some Author" + number);
-        book.setLaunchDate(new Date());
-        book.setPrice(25D);
+        book.setLaunchDate(LocalDateTime.now());
+        book.setPrice(BigDecimal.valueOf(25));
         book.setTitle("Some Title" + number);
         return book;
     }

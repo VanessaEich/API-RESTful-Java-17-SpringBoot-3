@@ -6,6 +6,8 @@ import com.github.dozermapper.core.Mapping;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -21,8 +23,8 @@ public class BookDTO extends RepresentationModel<BookDTO> implements Serializabl
     @Mapping("id")
     private Long key;
     private String author;
-    private Date launchDate;
-    private Double price;
+    private LocalDateTime launchDate;
+    private BigDecimal price;
     private String title;
 
     public BookDTO() {
@@ -44,19 +46,19 @@ public class BookDTO extends RepresentationModel<BookDTO> implements Serializabl
         this.author = author;
     }
 
-    public Date getLaunchDate() {
+    public LocalDateTime getLaunchDate() {
         return launchDate;
     }
 
-    public void setLaunchDate(Date launchDate) {
+    public void setLaunchDate(LocalDateTime launchDate) {
         this.launchDate = launchDate;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

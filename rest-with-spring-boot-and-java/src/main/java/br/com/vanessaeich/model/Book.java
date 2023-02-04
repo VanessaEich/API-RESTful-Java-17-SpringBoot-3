@@ -3,6 +3,8 @@ package br.com.vanessaeich.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -23,11 +25,10 @@ public class Book implements Serializable {
     private String author;
 
     @Column(name = "launch_date", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date launchDate;
+    private LocalDateTime launchDate;
 
     @Column(nullable = false)
-    private Double price;
+    private BigDecimal price;
 
     @Column(nullable = false, length = 250)
     private String title;
@@ -50,19 +51,19 @@ public class Book implements Serializable {
         this.author = author;
     }
 
-    public Date getLaunchDate() {
+    public LocalDateTime getLaunchDate() {
         return launchDate;
     }
 
-    public void setLaunchDate(Date launchDate) {
+    public void setLaunchDate(LocalDateTime launchDate) {
         this.launchDate = launchDate;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
