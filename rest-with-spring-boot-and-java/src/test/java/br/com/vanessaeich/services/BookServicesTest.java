@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +58,7 @@ class BookServicesTest {
         assertTrue(result.toString().contains("links: [</api/book/v1/1>;rel=\"self\"]"));
         assertEquals("Some Author1", result.getAuthor());
         assertEquals("Some Title1", result.getTitle());
-        assertEquals(25D, result.getPrice());
+        assertEquals(BigDecimal.valueOf(25), result.getPrice());
         assertNotNull(result.getLaunchDate());
     }
 
@@ -83,7 +84,7 @@ class BookServicesTest {
         assertTrue(result.toString().contains("links: [</api/book/v1/1>;rel=\"self\"]"));
         assertEquals("Some Author1", result.getAuthor());
         assertEquals("Some Title1", result.getTitle());
-        assertEquals(25D, result.getPrice());
+        assertEquals(BigDecimal.valueOf(25), result.getPrice());
         assertNotNull(result.getLaunchDate());
     }
 
@@ -123,7 +124,7 @@ class BookServicesTest {
         assertTrue(result.toString().contains("links: [</api/book/v1/1>;rel=\"self\"]"));
         assertEquals("Some Author1", result.getAuthor());
         assertEquals("Some Title1", result.getTitle());
-        assertEquals(25D, result.getPrice());
+        assertEquals(BigDecimal.valueOf(25), result.getPrice());
         assertNotNull(result.getLaunchDate());
     }
 
@@ -171,7 +172,7 @@ class BookServicesTest {
         assertTrue(bookOne.toString().contains("links: [</api/book/v1/1>;rel=\"self\"]"));
         assertEquals("Some Author1", bookOne.getAuthor());
         assertEquals("Some Title1", bookOne.getTitle());
-        assertEquals(25D, bookOne.getPrice());
+        assertEquals(BigDecimal.valueOf(25), bookOne.getPrice());
         assertNotNull(bookOne.getLaunchDate());
 
         var bookFour = people.get(4);
@@ -183,7 +184,7 @@ class BookServicesTest {
         assertTrue(bookFour.toString().contains("links: [</api/book/v1/4>;rel=\"self\"]"));
         assertEquals("Some Author4", bookFour.getAuthor());
         assertEquals("Some Title4", bookFour.getTitle());
-        assertEquals(25D, bookFour.getPrice());
+        assertEquals(BigDecimal.valueOf(25), bookFour.getPrice());
         assertNotNull(bookFour.getLaunchDate());
 
         var bookSeven = people.get(7);
@@ -195,7 +196,7 @@ class BookServicesTest {
         assertTrue(bookSeven.toString().contains("links: [</api/book/v1/7>;rel=\"self\"]"));
         assertEquals("Some Author7", bookSeven.getAuthor());
         assertEquals("Some Title7", bookSeven.getTitle());
-        assertEquals(25D, bookSeven.getPrice());
+        assertEquals(BigDecimal.valueOf(25), bookSeven.getPrice());
         assertNotNull(bookSeven.getLaunchDate());
     }
 
